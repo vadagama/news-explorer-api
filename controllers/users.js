@@ -5,13 +5,17 @@ const User = require("../models/user");
 module.exports.getUsers = (req, res) => {
   User.find({})
     .then(users => res.send({ data: users }))
-    .catch(next);
+    .catch((err) => {
+      res.status(401).send({ message: err.message });
+  });
 };
 
 module.exports.getUser = (req, res) => {
     User.findById(req.params.id)
-      .then(user => user ? res.send({ data: user }) : res.status(404).send({ "message": "Такого пользователя нет" }))
-      .catch(next);
+      .then(user => user ? res.send({ data: user }) : res.status(404).send({ "message": "There is no such user" }))
+      .catch((err) => {
+        res.status(401).send({ message: err.message });
+    });
   };
 
 module.exports.createUser = (req, res) => {
@@ -19,11 +23,11 @@ module.exports.createUser = (req, res) => {
       .then(hash =>  User.create({ 
         email: req.body.email, 
         password: hash, 
-        name: req.body.name, 
-        about: req.body.about, 
-        avatar: req.body.avatar }))
+        name: req.body.name }))
       .then((user) => res.status(201).send(user))
-      .catch(next);
+      .catch((err) => {
+        res.status(401).send({ message: err.message });
+    });
   };
 
   module.exports.login = (req, res) => {

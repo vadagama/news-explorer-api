@@ -30,7 +30,7 @@ app.use("/articles", require("./routes/articles"));
 app.use(errorLogger);
 
 app.use((req, res) => {
-  res.status(404).send({ "message": "Запрашиваемый ресурс не найден" });
+  res.status(404).send({ "message": "There is no such resource" });
 });
 
 app.use((err, req, res, next) => {
@@ -39,7 +39,7 @@ app.use((err, req, res, next) => {
       .status(statusCode)
       .send({
           message: statusCode === 500
-              ? "На сервере произошла ошибка"
+              ? "Error on server"
               : message
       });
 });

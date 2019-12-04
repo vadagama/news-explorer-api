@@ -9,7 +9,7 @@ module.exports = (req, res, next) => {
   const { authorization } = req.headers;
 
   if (!authorization || !authorization.startsWith("Bearer ")) {
-    throw new handleAuthError("Нет пользователя с таким id");
+    throw new handleAuthError("There is no user with such id");
   }
   const token = extractBearerToken(authorization);
   let payload;
@@ -17,7 +17,7 @@ module.exports = (req, res, next) => {
   try {
     payload = jwt.verify(token, "super-strong-secret");
   } catch (err) {
-    throw new NotFoundError("Нет пользователя с таким id");
+    throw new NotFoundError("There is no user with such id");
   }
 
   req.user = payload; 
