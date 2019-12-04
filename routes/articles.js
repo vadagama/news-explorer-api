@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const { getArticles, postArticle, deleteArticle } = require("../controllers/cards");
+const { getArticles, postArticle, deleteArticle } = require("../controllers/articles");
 
 router.get("/articles", getArticles);
 router.post("/articles", postArticle);

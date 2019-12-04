@@ -1,26 +1,16 @@
-const Card = require("../models/card");
+const Card = require("../models/article");
 
-module.exports.getCards = (req, res) => {
-  Card.find({})
-    .then(cards => res.send({
-      data: cards
+module.exports.getArticles = (req, res) => {
+  Article.find({})
+    .then(article => res.send({
+      data: article
     }))
     .catch(err => res.status(500).send({
       message: err.message
     }));
 };
 
-module.exports.getCard = (req, res) => {
-  Card.findById(req.params.id)
-    .then(cards => res.send({
-      data: cards
-    }))
-    .catch(err => res.status(500).send({
-      message: err.message
-    }));
-};
-
-module.exports.createCard = (req, res) => {
+module.exports.postArticle = (req, res) => {
   const {
     name,
     link,
@@ -28,22 +18,22 @@ module.exports.createCard = (req, res) => {
     createdAt
   } = req.body;
   const owner = req.user;
-  Card.create({
+  Article.create({
       name,
       link,
       owner,
       likes,
       createdAt
     })
-    .then(card => res.send({
-      data: card
+    .then(article => res.send({
+      data: article
     }))
     .catch(err => res.status(500).send({
       message: err.message
     }));
 };
 
-module.exports.deleteCard = (req, res) => {
+module.exports.deleteArticle = (req, res) => {
   const curent_user = req.user._id;
   Card.findById(req.params.id, function (err, card) {
     if (err) return res.status(500).send("There was a problem deleting the card.");
