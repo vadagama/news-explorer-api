@@ -1,4 +1,4 @@
-const Card = require("../models/article");
+const Article = require("../models/article");
 
 module.exports.getArticles = (req, res) => {
   Article.find({})
@@ -17,8 +17,7 @@ module.exports.postArticle = (req, res) => {
     date,
     source,
     link,
-    image,
-    createdAt
+    image
   } = req.body;
   const owner = req.user;
   Article.create({
@@ -28,7 +27,7 @@ module.exports.postArticle = (req, res) => {
       source,
       link,
       image,
-      createdAt
+      owner
     })
     .then(article => res.send({
       data: article
@@ -40,11 +39,11 @@ module.exports.postArticle = (req, res) => {
 
 module.exports.deleteArticle = (req, res) => {
   const curent_user = req.user._id;
-  Card.findById(req.params.id, function (err, article) {
+  Article.findById(req.params.id, function (err, article) {
     if (err) return res.status(500).send("There was a problem deleting the article.");
     const owner = article.owner;
     if (curent_user == owner) {
-      res.status(200).send("Card deleted");
+      res.status(200).send("Article deleted");
     } else {
       res.status(401).send("User not authorized to delete this article");
     }

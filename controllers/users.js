@@ -2,32 +2,26 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken"); 
 const User = require("../models/user");
 
-module.exports.getUsers = (req, res) => {
+module.exports.getUsers = (req, res, next) => {
   User.find({})
     .then(users => res.send({ data: users }))
-    .catch((err) => {
-      res.status(401).send({ message: err.message });
-  });
+    .catch(next);
 };
 
-module.exports.getUser = (req, res) => {
+module.exports.getUser = (req, res, next) => {
     User.findById(req.params.id)
       .then(user => user ? res.send({ data: user }) : res.status(404).send({ "message": "There is no such user" }))
-      .catch((err) => {
-        res.status(401).send({ message: err.message });
-    });
+      .catch(next);
   };
 
-module.exports.createUser = (req, res) => {
+module.exports.createUser = (req, res, next) => {
      bcrypt.hash(req.body.password,10)
       .then(hash =>  User.create({ 
         email: req.body.email, 
         password: hash, 
         name: req.body.name }))
       .then((user) => res.status(201).send(user))
-      .catch((err) => {
-        res.status(401).send({ message: err.message });
-    });
+      .catch(next);
   };
 
   module.exports.login = (req, res) => {
