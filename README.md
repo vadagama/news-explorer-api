@@ -4,6 +4,7 @@
 <p>Version: 1.0.0</p>
 <p>Technologies: Javascript, Node.js, Express.js, Яндекс.Cloud</p>
 <p>Projects repository: <a href="https://github.com/vadagama/news-explorer-api">https://github.com/vadagama/news-explorer-api</a></p>
+<p>Public URL: <a href="http://api.first-news-explorer.tk/">http://api.first-news-explorer.tk/</a></p>
 <h2>How to deploy this project</h2>
 <p>Follow nest steps:</p>
 <ul>
