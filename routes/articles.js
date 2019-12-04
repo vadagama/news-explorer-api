@@ -3,6 +3,6 @@ const { getArticles, postArticle, deleteArticle } = require("../controllers/arti
 
 router.get("/", getArticles);
 router.post("/", postArticle);
-router.delete("/:articleId", deleteArticle);
+router.delete("/:id", deleteArticle);
 
 module.exports = router;

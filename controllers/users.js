@@ -9,7 +9,7 @@ module.exports.getUsers = (req, res, next) => {
 };
 
 module.exports.getUser = (req, res, next) => {
-    User.findById(req.params.id)
+    User.findById(req.user._id)
       .then(user => user ? res.send({ data: user }) : res.status(404).send({ "message": "There is no such user" }))
       .catch(next);
   };
