@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const errors = require("../helpers/errors");
 
 const articleSchema = new mongoose.Schema({
     keyword: {
@@ -24,7 +25,7 @@ const articleSchema = new mongoose.Schema({
         validator: function(v) {
             return /^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$/.test(v);
         },
-        message: props => `${props.value} Invalid URL!`
+        message: errors.LINK_TO_ORIGIN_ERR
         }
     },
     image: {
@@ -34,7 +35,7 @@ const articleSchema = new mongoose.Schema({
         validator: function(v) {
             return /^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$/.test(v);
         },
-        message: props => `${props.value} Invalid URL!`
+        message: errors.NO_IMG_URL_ERR
         }
     },
     owner: {
